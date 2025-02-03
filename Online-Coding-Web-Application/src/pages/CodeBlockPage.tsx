@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CodeMirror from '@uiw/react-codemirror';
 import socket from '../utils/socket';
 import axios from 'axios';
@@ -17,6 +17,7 @@ const CodeBlockPage: React.FC = () => {
   const [title, setTitle] = useState<string>();
   
   const solutionRef = useRef<string>('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch code block details (template and solution)
@@ -57,11 +58,7 @@ const CodeBlockPage: React.FC = () => {
     
     // Cleanup on unmount
     return () => {
-      socket.off('role');
-      socket.off('code-update');
-      socket.off('student-count');
-      socket.emit('leave-room', id);
-
+      socket.removeAllListeners();
       socket.emit('leave-room', id);
     };
   }, [id]);
@@ -80,24 +77,26 @@ const CodeBlockPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className={styles.pageHeader}>
-        <label >Code Block Page</label>
-        <label>{title}</label>
+    <>
+      <div 
+        className={styles.pageHeader} 
+        onClick={() => navigate(`/`)}>
+          <label>Code Block Page</label>
+          <label>{title}</label>
       </div>
       <div className={styles.stats}>
-        <label>Participants: {studentCount}.</label>
-        <label>Role: {role} {role === 'mentor' ? '👨‍🏫' : '👨‍🎓'}.</label>
+        <label>Participants: {studentCount}</label>
+        <label>Role: {role} {role === 'mentor' ? '👨‍🏫' : '👨‍🎓'}</label>
       </div>
       <CodeMirror
         value={code}
         onChange={handleCodeChange}
         readOnly={role === 'mentor'}
         className="border rounded"
-        height="792px"
+        height="50vh"
       />
       {isSolved && <div className="text-6xl mt-4">😊</div>}
-    </div>
+    </>
   );
 };
 

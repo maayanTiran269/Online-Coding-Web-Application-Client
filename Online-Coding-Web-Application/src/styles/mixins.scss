@@ -1,0 +1,23 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin pageHeader {
+    width: 100%;
+    height: $xl;
+    background-color: $page-title-background-color;
+    display: flex;
+    align-items: center;
+
+    label { 
+      color: $primary-color;
+      font-size: $medium;
+      padding: $medium;
+      text-align: center;
+    }
+    
+    margin-bottom: $medium;
+}

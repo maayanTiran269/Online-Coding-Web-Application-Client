@@ -8,7 +8,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LobbyPage />} />
-        <Route path="/post/:id" element={<CodeBlockPage />} />
+        <Route path="/code-block/:id" element={<CodeBlockPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

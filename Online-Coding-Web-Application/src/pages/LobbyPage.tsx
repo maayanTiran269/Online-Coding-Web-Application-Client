@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ICodeBlock } from '../types/codeBlock';
-
+import styles from '../styles/pages/LobbyPage.module.scss'
 const LobbyPage: React.FC = () => {
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
   const navigate = useNavigate();
@@ -14,19 +14,26 @@ const LobbyPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Choose Code Block</h1>
-      <ul>
-        {codeBlocks.map((block) => (
-          <li
-            key={block._id}
-            className="p-2 hover:bg-gray-100 cursor-pointer"
-            onClick={() => navigate(`/code-block/${block._id}`)}
-          >
-            {block.template}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <div className={styles.pageHeader}>
+        <label >Choose Code Block</label>
+      </div>
+      <div className={styles.codeBlocksContainer}>
+      {codeBlocks.map((block) => (
+        <div 
+          key={block._id}
+          className={styles.codeBox}
+          onClick={() => navigate(`/code-block/${block._id}`)}
+        >
+          {/* <div className={styles.codeBoxHeader}>
+            <label>{block.title}</label>
+            <label>Code Block</label>
+          </div> */}
+          
+          {block.template}
+        </div>
+      ))}
+      </div>
     </div>
   );
 };

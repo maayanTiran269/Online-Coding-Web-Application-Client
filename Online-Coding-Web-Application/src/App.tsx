@@ -1,4 +1,6 @@
-import './App.css'
+import './styles/App.scss'
+import './styles/pages/LobbyPage.module.scss'
+
 import AppRoutes from './routes/AppRoutes'
 
 function App() {

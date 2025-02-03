@@ -1,0 +1,10 @@
+// _globals.scss
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+// App.scss
+@import 'globals';
+@import 'variables';
+@import 'mixins';

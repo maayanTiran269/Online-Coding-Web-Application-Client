@@ -1,0 +1,17 @@
+@import '../variables.scss';
+@import '../mixins';
+
+.pageHeader {
+    @include pageHeader;
+    justify-content:space-between;
+    margin-bottom: 0;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: $spacing-unit;
+    color: $secondary-color;
+}

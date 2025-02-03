@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LobbyPage from '../pages/LobbyPage';
 import CodeBlockPage from '../pages/CodeBlockPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 const AppRoutes = () => {
   return (

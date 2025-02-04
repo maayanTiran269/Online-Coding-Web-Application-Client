@@ -7,19 +7,18 @@ import { ICodeBlock } from '../types/codeBlock';
 import { debounce } from 'lodash';
 import styles from '../styles/pages/CodeBlockPage.module.scss';
 import { javascript } from '@codemirror/lang-javascript';
+import { message } from 'antd';
 
 const CodeBlockPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');
-  const [solution, setSolution] = useState<string>('')
   const [role, setRole] = useState<'mentor' | 'student'>();
   const [studentCount, setStudentCount] = useState<number>();
-  const [isSolved, setIsSolved] = useState<boolean>(false);
   const [title, setTitle] = useState<string>();
 
-  // const solutionRef = useRef<string>('');
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -31,8 +30,6 @@ const CodeBlockPage: React.FC = () => {
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {
         setTitle(response.data.title);
-        setSolution(response.data.solution);
-        // solutionRef.current = response.data.solution;
       })
       .catch((error => {
         console.error('Failed to fetch code block:', error);
@@ -55,7 +52,12 @@ const CodeBlockPage: React.FC = () => {
     // Listen for code updates
     socket.on('code-update', async (data: string) => {
       setCode(data);
-      setIsSolved(data === solution);
+    });
+
+    socket.on('code-solved', (data: boolean) => {
+      if(data){
+        message.success('🎉 Congratulations! You solved the code! 😊');
+      }
     });
 
     socket.on('redirect-lobby', () => {
@@ -67,7 +69,7 @@ const CodeBlockPage: React.FC = () => {
       socket.removeAllListeners();
       socket.emit('leave-room', id);
     };
-  }, [id, solution, navigate, apiUrl]);
+  }, [id, navigate, apiUrl]);
 
   const debouncedEmit = debounce((roomId: string, newCode: string) => {
     socket.emit('code-update', { roomId, code: newCode });
@@ -100,9 +102,8 @@ const CodeBlockPage: React.FC = () => {
         readOnly={role === 'mentor'}
         extensions={[javascript()]}
         className="border rounded"
-        height="80svh"
+        height="80vh"
       />
-      {isSolved && <div>😊</div>}
     </>
   );
 };

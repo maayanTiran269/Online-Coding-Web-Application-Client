@@ -16,7 +16,7 @@ const CodeBlockPage: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');
   const [role, setRole] = useState<'mentor' | 'student'>();
-  const [studentCount, setStudentCount] = useState<number>();
+  const [studentCount, setStudentCount] = useState<number>(0);
   const [title, setTitle] = useState<string>();
 
   const navigate = useNavigate();
@@ -33,7 +33,8 @@ const CodeBlockPage: React.FC = () => {
       })
       .catch((error => {
         console.error('Failed to fetch code block:', error);
-        alert('Error fetching code block. Please try again later.');
+        message.error('Error fetching code block. Please try again later.');
+        navigate('/');
       }));
 
     // Join the room
@@ -46,7 +47,14 @@ const CodeBlockPage: React.FC = () => {
 
     // Listen for student count updates
     socket.on('student-count', (data: number) => {
-      setStudentCount(data);
+      setStudentCount((prevCount) => {
+        if (data > prevCount) {
+          message.info('New student just joined the room 🖐');
+        } else if (data < prevCount) {
+          message.info('Student just left the room 🏃‍♂️');
+        }
+        return data; // Update state with the latest data
+      });
     });
 
     // Listen for code updates
@@ -62,6 +70,7 @@ const CodeBlockPage: React.FC = () => {
 
     socket.on('redirect-lobby', () => {
       navigate(`/`);
+      message.info('This room has been closed by the mentor 🚪.');
     });
 
     // Cleanup on unmount
@@ -73,7 +82,7 @@ const CodeBlockPage: React.FC = () => {
 
   const debouncedEmit = debounce((roomId: string, newCode: string) => {
     socket.emit('code-update', { roomId, code: newCode });
-  }, 0); // 100ms delay
+  }, 100); // 100ms delay
 
   const handleCodeChange = (newCode: string) => {
     if (role === 'student') {

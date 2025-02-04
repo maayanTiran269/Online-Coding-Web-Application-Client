@@ -27,7 +27,6 @@ const CodeBlockPage: React.FC = () => {
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {
         setTitle(response.data.title);
-        setCode(response.data.template);
         setSolution(response.data.solution);
         // solutionRef.current = response.data.solution;
       })
@@ -64,7 +63,7 @@ const CodeBlockPage: React.FC = () => {
       socket.removeAllListeners();
       socket.emit('leave-room', id);
     };
-  }, [id, solution, navigate]);
+  }, [id, solution, navigate, apiUrl]);
 
   const debouncedEmit = debounce((roomId: string, newCode: string) => {
     socket.emit('code-update', { roomId, code: newCode });

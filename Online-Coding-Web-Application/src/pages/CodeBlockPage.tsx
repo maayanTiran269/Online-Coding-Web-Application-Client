@@ -9,7 +9,7 @@ import styles from '../styles/pages/CodeBlockPage.module.scss';
 import { javascript } from '@codemirror/lang-javascript';
 
 const CodeBlockPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  const apiUrl = import.meta.env.VITE_PROD_API_URL;
 
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');

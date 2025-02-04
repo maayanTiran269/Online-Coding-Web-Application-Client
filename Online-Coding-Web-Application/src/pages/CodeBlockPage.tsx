@@ -15,7 +15,7 @@ const CodeBlockPage: React.FC = () => {
   const [code, setCode] = useState<string>('');
   const [solution, setSolution] = useState<string>('')
   const [role, setRole] = useState<'mentor' | 'student'>();
-  const [studentCount, setStudentCount] = useState<number>(0);
+  const [studentCount, setStudentCount] = useState<number>();
   const [isSolved, setIsSolved] = useState<boolean>(false);
   const [title, setTitle] = useState<string>();
 
@@ -23,6 +23,10 @@ const CodeBlockPage: React.FC = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
+    const array = [1,2,3,4];
+    let count = 0;
+    array.forEach((index) => {count += index});
+    console.log(count)
     // Fetch code block details (template and solution)
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {
@@ -96,7 +100,7 @@ const CodeBlockPage: React.FC = () => {
         readOnly={role === 'mentor'}
         extensions={[javascript()]}
         className="border rounded"
-        height="50vh"
+        height="80svh"
       />
       {isSolved && <div>😊</div>}
     </>

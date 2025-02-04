@@ -8,7 +8,7 @@ const LobbyPage: React.FC = () => {
 
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     axios.get<ICodeBlock[]>(`${apiUrl}/api/code-blocks`)
       .then((response) => setCodeBlocks(response.data))

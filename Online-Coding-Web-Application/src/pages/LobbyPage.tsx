@@ -8,7 +8,7 @@ const LobbyPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get<ICodeBlock[]>('http://localhost:3000/api/code-blocks')
+    axios.get<ICodeBlock[]>('https://online-coding-web-application-server.onrender.com/api/code-blocks')
       .then((response) => setCodeBlocks(response.data))
       .catch((error) => console.error('Error fetching code blocks:', error));
   }, []);
@@ -25,11 +25,6 @@ const LobbyPage: React.FC = () => {
           className={styles.codeBox}
           onClick={() => navigate(`/code-block/${block._id}`)}
         >
-          {/* <div className={styles.codeBoxHeader}>
-            <label>{block.title}</label>
-            <label>Code Block</label>
-          </div> */}
-          
           {block.template}
         </div>
       ))}

@@ -22,7 +22,7 @@ const CodeBlockPage: React.FC = () => {
 
   useEffect(() => {
     // Fetch code block details (template and solution)
-    axios.get<ICodeBlock>(`http://localhost:3000/api/code-blocks/${id}`)
+    axios.get<ICodeBlock>(`https://online-coding-web-application-server.onrender.com/api/code-blocks/${id}`)
       .then(async (response) => {
         setTitle(response.data.title);
         setCode(response.data.template);

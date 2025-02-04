@@ -9,6 +9,8 @@ import styles from '../styles/pages/CodeBlockPage.module.scss';
 import { javascript } from '@codemirror/lang-javascript';
 
 const CodeBlockPage: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
+
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');
   const [solution, setSolution] = useState<string>('')
@@ -19,10 +21,10 @@ const CodeBlockPage: React.FC = () => {
 
   // const solutionRef = useRef<string>('');
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // Fetch code block details (template and solution)
-    axios.get<ICodeBlock>(`https://online-coding-web-application-server.onrender.com/api/code-blocks/${id}`)
+    axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {
         setTitle(response.data.title);
         setCode(response.data.template);

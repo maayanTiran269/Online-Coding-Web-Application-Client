@@ -4,14 +4,16 @@ import axios from 'axios';
 import { ICodeBlock } from '../types/codeBlock';
 import styles from '../styles/pages/LobbyPage.module.scss'
 const LobbyPage: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
+
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get<ICodeBlock[]>('https://online-coding-web-application-server.onrender.com/api/code-blocks')
+    axios.get<ICodeBlock[]>(`${apiUrl}/api/code-blocks`)
       .then((response) => setCodeBlocks(response.data))
       .catch((error) => console.error('Error fetching code blocks:', error));
-  }, []);
+  }, [apiUrl]);
 
   return (
     <div>

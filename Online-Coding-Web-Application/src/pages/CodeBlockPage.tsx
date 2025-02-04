@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CodeMirror from '@uiw/react-codemirror';
 import socket from '../utils/socket';
 import axios from 'axios';
-import { RoleAssignmentData, CodeUpdateData, StudentCountData } from '../types/socket';
 import { ICodeBlock } from '../types/codeBlock';
 import { debounce } from 'lodash';
 import styles from '../styles/pages/CodeBlockPage.module.scss';
@@ -32,30 +31,25 @@ const CodeBlockPage: React.FC = () => {
       alert('Error fetching code block. Please try again later.');
     }));
 
-    
+    // Join the room
+    socket.emit('join-room', id);
 
     // Listen for role assignment
-    socket.on('role', (data: RoleAssignmentData) => {
-      setRole(data.role);
+    socket.on('role', (data: 'mentor' | 'student') => {
+      setRole(data);
+    });
+
+     // Listen for student count updates
+     socket.on('student-count', (data: number) => {
+      setStudentCount(data);
     });
 
     // Listen for code updates
-    socket.on('code-update', (data: CodeUpdateData) => {
-      if(data.roomId === id)
-      {
-        setCode(data.code);
-        setIsSolved(data.code === solutionRef.current);
-      }
+    socket.on('code-update', (data: string) => {
+      setCode(data);
+      setIsSolved(data === solutionRef.current);
     });
 
-    // Listen for student count updates
-    socket.on('student-count', (data: StudentCountData) => {
-      setStudentCount(data.count);
-    });
-
-    // Join the room
-    socket.emit('join-room', id);
-    
     // Cleanup on unmount
     return () => {
       socket.removeAllListeners();
@@ -65,7 +59,7 @@ const CodeBlockPage: React.FC = () => {
 
   const debouncedEmit = debounce((roomId: string, newCode: string) => {
     socket.emit('code-update', { roomId, code: newCode });
-  }, 300); // 300ms delay
+  }, 0); // 100ms delay
 
   const handleCodeChange = (newCode: string) => {
     if (role === 'student') {
@@ -95,7 +89,7 @@ const CodeBlockPage: React.FC = () => {
         className="border rounded"
         height="50vh"
       />
-      {isSolved && <div className="text-6xl mt-4">😊</div>}
+      {isSolved && <div>😊</div>}
     </>
   );
 };

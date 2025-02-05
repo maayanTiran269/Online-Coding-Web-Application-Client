@@ -10,8 +10,10 @@
 .codeBlocksContainer{
     @include flex-center;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
+    max-width: 100vw;
+    height: 85vh;
+    overflow-y: scroll;
+    padding: $spacing-unit;
 }
 
 .codeBox {
@@ -41,4 +43,3 @@
         transform: scale(1.05); /* Slight scale to make it feel interactive */
     }
 }
-

@@ -47,7 +47,6 @@ const LobbyPage: React.FC = () => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };

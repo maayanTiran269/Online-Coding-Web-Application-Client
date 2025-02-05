@@ -4,10 +4,10 @@ import axios from 'axios';
 import { ICodeBlock } from '../types/codeBlock';
 import styles from '../styles/pages/LobbyPage.module.scss'
 import { message } from 'antd';
-// import CreateCodeBlockModal from '../components/CreateCodeBlock.modal';
+import CreateCodeBlockModal from '../components/CreateCodeBlock.modal';
 const LobbyPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-  // const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
 
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const LobbyPage: React.FC = () => {
     <div>
       <div className={styles.pageHeader}>
         <label >Choose Code Block</label>
-        {/* <CreateCodeBlockModal /> */}
+        <CreateCodeBlockModal />
       </div>
       <div className={styles.codeBlocksContainer}>
         {codeBlocks.map((block) => (

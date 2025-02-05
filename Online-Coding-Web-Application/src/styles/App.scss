@@ -5,4 +5,5 @@ body {
   background-color: $primary-background-color; // Applies to the entire app
   min-height: 100vh; // Ensure it covers the full viewport height
   font-family: Arial, sans-serif;
+  overflow-y: hidden;
 }

@@ -4,8 +4,8 @@ import axios from 'axios';
 import {PlusOutlined} from '@ant-design/icons';
 import styles from '../styles/components/CreateCodeBlock.modal.module.scss';
 const CreateCodeBlockModal: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-  // const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
 
@@ -33,7 +33,7 @@ const CreateCodeBlockModal: React.FC = () => {
   return (
     <>
       <Button className={styles.button} onClick={showModal}>
-        <PlusOutlined />
+        <PlusOutlined style={{ fontSize: '24px', fontWeight: 'bold' }}/>
       </Button>
       <Modal
         title="Create New Code Block"

@@ -9,8 +9,8 @@ import socket from '../utils/socket';
 import { CodeOutlined } from '@ant-design/icons';
 
 const LobbyPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-  // const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
 
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
   const navigate = useNavigate();

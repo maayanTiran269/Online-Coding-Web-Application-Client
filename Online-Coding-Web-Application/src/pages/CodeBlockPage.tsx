@@ -10,8 +10,8 @@ import { javascript } from '@codemirror/lang-javascript';
 import { message } from 'antd';
 import {} from 'antd' 
 const CodeBlockPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-  // const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
   
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');
@@ -107,7 +107,7 @@ const CodeBlockPage: React.FC = () => {
         readOnly={role === 'mentor'}
         extensions={[javascript()]}
         className="border rounded"
-        height="80vh"
+        height="40vh"
       />
     </>
   );

@@ -2,7 +2,7 @@
 @import '../mixins';
 
 body{
-    background-color: #282c34
+    background-color: $primary-background-color
 }
 .pageHeader {
     @include pageHeader;

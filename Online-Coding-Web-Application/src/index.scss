@@ -1,12 +1,12 @@
 @import './styles/variables.scss';
 
+//code for the scroller
 ::-webkit-scrollbar {
     width: 4px;
     height: 1px;
   }
   
   ::-webkit-scrollbar-track {
-    /* background: #61616163; */
     background-color: $primary-background-color;
     border-radius: 3px;
   }

@@ -3,10 +3,14 @@
 .button {
     width: $large;
     height: $large;
-    border-radius: 8px 8px 8px 8px;
-    background-color: #4d6afe00  ;
-    border: 1px solid $primary-color;
-    color: $primary-color;
+
     margin-right: $spacing-unit;
+
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid $primary-color;
+
+    color: $primary-color;
+    background-color: #4d6afe00;
+
     font-weight: bold;
 }

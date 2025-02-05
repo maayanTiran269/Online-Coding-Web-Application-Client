@@ -1,77 +1,84 @@
 @import '../variables.scss';
 @import '../mixins';
 
-
 .pageHeader {
   @include pageHeader;
 }
 
-
 .codeBlocksContainer {
   @include flex-center;
-  flex-direction: row;
+
   max-width: 100vw;
+  flex-direction: row;
   padding: $spacing-unit;
 }
 
 .codeBox {
-    width: 250px;
-    word-break: break-all;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: black;
-    color: $primary-color;
-    font-family:'Courier New', Courier, monospace;
-    // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1); // Subtle shadow for depth
+  width: 250px;
 
-    margin: $spacing-unit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: $primary-color;
+  background-color: black;
 
-    .header {
-      background: linear-gradient(to bottom, #373737, black); //darker
-      // background: linear-gradient(to bottom, #50505a, #434343); lighter
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
 
-      padding: 15px;
-      font-size: 18px;
-      font-weight: bold;
+  overflow: hidden;
+  word-break: break-word;
+
+  margin: $spacing-unit;
+  font-family: 'Courier New', Courier, monospace;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: linear-gradient(to bottom, #373737, black); //darker
+    // background: linear-gradient(to bottom, #50505a, #434343); //lighter
+
+    padding: 15px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    label {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-
-      label {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .icon {
-        font-size: 16px;
-      }
+      gap: 8px;
     }
 
-    .deleteIcon {
-      &:hover {
-        color: #ff7875;
-      }
-    }
-    
-
-    .body {
-      padding: 15px;
+    .icon {
       font-size: 16px;
-      color: #e0e0e0;
-    }
-
-    .footer {
-      padding: 10px 15px;
-      font-size: 12px;
-      color: #888;
-    }
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
-        transform: scale(1.05); /* Slight scale to make it feel interactive */
     }
   }
+
+  .deleteIcon {
+    &:hover {
+      color: #ff7875;
+    }
+  }
+
+  .body {
+    padding: 15px;
+    font-size: 16px;
+
+    color: #e0e0e0;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #888;
+
+    font-size: 12px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+}

@@ -17,24 +17,42 @@
 }
 
 .codeBox {
-    max-width: 50vw;
-    
-    display: flex;
-    flex-direction: column;
-
-    border: 1px solid #444; /* Subtle border */
-    border-radius: $border-radius $border-radius $border-radius $border-radius;
-
-    padding: $spacing-unit;
+    width: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     margin: $spacing-unit;
-
-    background-color: $code-box-background;
-    color: $primary-color;
-
-    font-size: $small;
-
     transition: all 0.3s ease; /* Smooth transition for hover effects */
-    
+
+    .header {
+      background: linear-gradient(to bottom, #50505a, #434343);
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+  
+      .icon {
+        font-size: 16px;
+      }
+    }
+  
+    .body {
+      padding: 15px;
+      font-size: 16px;
+      color: #e0e0e0;
+    }
+  
+    .footer {
+      padding: 10px 15px;
+      font-size: 12px;
+      color: #888;
+    }
+
     &:hover {
         cursor: pointer;
         background-color: #3b3b3b; /* Slightly lighter background */
@@ -42,4 +60,5 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
         transform: scale(1.05); /* Slight scale to make it feel interactive */
     }
-}
+  }
+  

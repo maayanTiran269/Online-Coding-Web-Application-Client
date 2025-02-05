@@ -6,6 +6,7 @@ import styles from '../styles/pages/LobbyPage.module.scss'
 import { message } from 'antd';
 import CreateCodeBlockModal from '../components/CreateCodeBlock.modal';
 import socket from '../utils/socket';
+import { CodeOutlined } from '@ant-design/icons';
 
 const LobbyPage: React.FC = () => {
   // const apiUrl = import.meta.env.VITE_PROD_API_URL;
@@ -43,7 +44,16 @@ const LobbyPage: React.FC = () => {
             className={styles.codeBox}
             onClick={() => navigate(`/code-block/${block._id}`)}
           >
-            {block.template}
+            <label className={styles.header}>
+              <CodeOutlined />
+              {block.title}
+            </label>
+            <p className={styles.body}>
+              {block.template}
+            </p>
+            <label className={styles.footer}>
+              {`${block.createdAt}`}
+            </label>
           </div>
         ))}
       </div>

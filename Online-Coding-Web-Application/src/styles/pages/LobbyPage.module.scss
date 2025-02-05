@@ -14,7 +14,7 @@
 }
 
 .codeBox {
-  width: 250px;
+  width: 500px;
 
   color: $primary-color;
   background-color: black;
@@ -34,8 +34,8 @@
     justify-content: space-between;
     align-items: center;
 
-    background: linear-gradient(to bottom, #373737, black); //darker
-    // background: linear-gradient(to bottom, #50505a, #434343); //lighter
+    // background: linear-gradient(to bottom, #373737, black); //darker
+    background: linear-gradient(to bottom, #50505a, #434343); //lighter
 
     padding: 15px;
 

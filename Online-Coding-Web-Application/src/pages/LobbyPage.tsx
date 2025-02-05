@@ -12,7 +12,7 @@ const LobbyPage: React.FC = () => {
   // const apiUrl = import.meta.env.VITE_PROD_API_URL;
   const apiUrl = import.meta.env.VITE_DEV_API_URL;
 
-  const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]);
+  const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]); //save the array of all the blocks in the state
   const navigate = useNavigate();
 
   useEffect(() => {

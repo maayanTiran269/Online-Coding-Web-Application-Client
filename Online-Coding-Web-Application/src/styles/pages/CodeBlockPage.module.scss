@@ -1,6 +1,9 @@
 @import '../variables.scss';
 @import '../mixins';
 
+body{
+    background-color: #282c34
+}
 .pageHeader {
     @include pageHeader;
     margin-bottom: 0;

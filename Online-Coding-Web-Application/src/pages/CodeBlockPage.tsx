@@ -105,9 +105,9 @@ const CodeBlockPage: React.FC = () => {
         value={code}
         onChange={handleCodeChange}
         readOnly={role === 'mentor'}
+        theme={'dark'}
         extensions={[javascript()]}
         className="border rounded"
-        height="40vh"
       />
     </>
   );

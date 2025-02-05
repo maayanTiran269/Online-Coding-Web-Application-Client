@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LobbyPage from '../pages/LobbyPage';
 import CodeBlockPage from '../pages/CodeBlockPage';
-import NotFoundPage from '../pages/NotFoundPage';
 
 const AppRoutes = () => {
   return (
@@ -9,7 +8,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<LobbyPage />} />
         <Route path="/code-block/:id" element={<CodeBlockPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<LobbyPage />} />
       </Routes>
     </BrowserRouter>
   );

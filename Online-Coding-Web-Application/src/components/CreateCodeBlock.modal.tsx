@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Input, Button, Form } from 'antd';
+import { Modal, Input, Button, Form, message } from 'antd';
 import axios from 'axios';
 import {PlusOutlined} from '@ant-design/icons';
 import styles from '../styles/components/CreateCodeBlock.modal.module.scss';
@@ -21,6 +21,7 @@ const CreateCodeBlockModal: React.FC = () => {
       form.resetFields();
     } catch (error) {
       console.error('Failed to create code block:', error);
+      message.error('Failed to create new code block, Please try again later')
     }
   };
 

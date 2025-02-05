@@ -22,10 +22,6 @@ const CodeBlockPage: React.FC = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    const array = [1,2,3,4];
-    let count = 0;
-    array.forEach((index) => {count += index});
-    console.log(count)
     // Fetch code block details (template and solution)
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {

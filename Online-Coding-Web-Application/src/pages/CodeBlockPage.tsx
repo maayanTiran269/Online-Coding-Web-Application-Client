@@ -7,19 +7,18 @@ import { ICodeBlock } from '../types/codeBlock';
 import { debounce } from 'lodash';
 import styles from '../styles/pages/CodeBlockPage.module.scss';
 import { javascript } from '@codemirror/lang-javascript';
-
+import { message } from 'antd';
+import {} from 'antd' 
 const CodeBlockPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
-
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>('');
-  const [solution, setSolution] = useState<string>('')
   const [role, setRole] = useState<'mentor' | 'student'>();
-  const [studentCount, setStudentCount] = useState<number>();
-  const [isSolved, setIsSolved] = useState<boolean>(false);
+  const [studentCount, setStudentCount] = useState<number>(0);
   const [title, setTitle] = useState<string>();
 
-  // const solutionRef = useRef<string>('');
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -31,12 +30,11 @@ const CodeBlockPage: React.FC = () => {
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`)
       .then(async (response) => {
         setTitle(response.data.title);
-        setSolution(response.data.solution);
-        // solutionRef.current = response.data.solution;
       })
       .catch((error => {
         console.error('Failed to fetch code block:', error);
-        alert('Error fetching code block. Please try again later.');
+        message.error('Error fetching code block. Please try again later.');
+        navigate('/');
       }));
 
     // Join the room
@@ -49,17 +47,30 @@ const CodeBlockPage: React.FC = () => {
 
     // Listen for student count updates
     socket.on('student-count', (data: number) => {
-      setStudentCount(data);
+      setStudentCount((prevCount) => {
+        if (data > prevCount) {
+          message.info('New student just joined the room 🖐');
+        } else if (data < prevCount) {
+          message.info('Student just left the room 🏃‍♂️');
+        }
+        return data; // Update state with the latest data
+      });
     });
 
     // Listen for code updates
     socket.on('code-update', async (data: string) => {
       setCode(data);
-      setIsSolved(data === solution);
+    });
+
+    socket.on('code-solved', (data: boolean) => {
+      if(data){
+        message.success('🎉 Congratulations! You solved the code! 😊');
+      }
     });
 
     socket.on('redirect-lobby', () => {
       navigate(`/`);
+      message.info('This room has been closed by the mentor 🚪.');
     });
 
     // Cleanup on unmount
@@ -67,11 +78,11 @@ const CodeBlockPage: React.FC = () => {
       socket.removeAllListeners();
       socket.emit('leave-room', id);
     };
-  }, [id, solution, navigate, apiUrl]);
+  }, [id, navigate, apiUrl]);
 
   const debouncedEmit = debounce((roomId: string, newCode: string) => {
     socket.emit('code-update', { roomId, code: newCode });
-  }, 0); // 100ms delay
+  }, 100); // 100ms delay
 
   const handleCodeChange = (newCode: string) => {
     if (role === 'student') {
@@ -100,9 +111,8 @@ const CodeBlockPage: React.FC = () => {
         readOnly={role === 'mentor'}
         extensions={[javascript()]}
         className="border rounded"
-        height="80svh"
+        height="80vh"
       />
-      {isSolved && <div>😊</div>}
     </>
   );
 };

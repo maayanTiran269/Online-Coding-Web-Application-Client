@@ -11,11 +11,12 @@
     background-color: $page-title-background-color;
     display: flex;
     align-items: center;
+    justify-content:space-between;
 
     label { 
       color: $primary-color;
-      font-size: $medium;
-      padding: $medium;
+      font-size: 24px;
+      padding: $spacing-unit;
       text-align: center;
     }
     

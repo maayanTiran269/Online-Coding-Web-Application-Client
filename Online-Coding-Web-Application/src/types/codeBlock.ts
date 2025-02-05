@@ -1,7 +1,3 @@
-/**
- * @description Types for code blocks (e.g., CodeBlock, CodeBlockSolution).
- */
-
 export interface ICodeBlock {
     _id: string; //MongoId of the code block
     title: string; //title of the block

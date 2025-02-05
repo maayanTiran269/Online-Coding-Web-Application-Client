@@ -1,11 +1,16 @@
 @import '../variables.scss';
 
 .button {
-    width: $xl;
+    width: $large;
     height: $large;
-    border-radius: 5px 5px 5px 5px;
-    background-color: $code-box-background  ;
-    border: 1px solid #444;
-    color: $primary-color;
+
     margin-right: $spacing-unit;
+
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid $primary-color;
+
+    color: $primary-color;
+    background-color: #4d6afe00;
+
+    font-weight: bold;
 }

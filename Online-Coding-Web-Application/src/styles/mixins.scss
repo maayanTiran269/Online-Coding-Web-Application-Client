@@ -1,23 +1,25 @@
 @import './variables.scss';
 
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 @mixin pageHeader {
-    width: 100%;
-    background-color: $page-title-background-color;
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
+  width: 100%;
 
-    label { 
-      color: $primary-color;
-      font-size: 24px;
-      padding: $spacing-unit;
-      text-align: center;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #212327;
+
+  label {
+    text-align: center;
+    padding: $spacing-unit;
+    color: $primary-color;
+    font-size: 24px;
+  }
 }

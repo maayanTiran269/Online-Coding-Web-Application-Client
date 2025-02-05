@@ -1,6 +1,10 @@
 @import '../variables.scss';
 @import '../mixins';
 
+body {
+    background-color: $primary-background-color
+}
+
 .pageHeader {
     @include pageHeader;
     margin-bottom: 0;
@@ -11,7 +15,9 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+
     padding: $spacing-unit;
+
     color: $secondary-color;
     font-size: $small;
 }

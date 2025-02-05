@@ -29,6 +29,10 @@ const LobbyPage: React.FC = () => {
       message.info('New code block add to the system')
     });
 
+    return () => {
+      socket.removeAllListeners();
+    };
+
   }, [apiUrl]);
 
   return (

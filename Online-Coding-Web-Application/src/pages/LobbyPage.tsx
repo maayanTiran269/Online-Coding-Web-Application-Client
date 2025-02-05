@@ -15,11 +15,9 @@ const LobbyPage: React.FC = () => {
   const navigate = useNavigate(); //Used in order to navigate between routs
 
   useEffect(() => { // react hook equivalent to the concept of 'ngOnInit' in angular
-    axios.get<ICodeBlock[]>(`${apiUrl}/api/code-blocks`).then( //sending http req to the server
-      (response) => {
+    axios.get<ICodeBlock[]>(`${apiUrl}/api/code-blocks`).then((response) => { //sending http req to the server in order to fetch all the codeBlocks from the DB
         setCodeBlocks(response.data); // save the blocks from the DB in the global state
-      })
-      .catch(
+      }).catch(
         (error) => { //handel errors if they appear
           console.error('Error fetching code blocks:', error); //log error in devTools
           message.error('Unable to retrieve code blocks. Please try again later.'); //notify the user about the error
@@ -36,8 +34,8 @@ const LobbyPage: React.FC = () => {
       message.success('Code block deleted successfully'); //notify the user that a block just got deleted
     });
 
-    return () => { //Clean up all socket listeners in this component when it unmounts
-      socket.removeAllListeners();
+    return () => { //cleanup all socket listeners in this component when it unmounts
+      socket.removeAllListeners();//remove all of the socket listeners in this component
     };
   }, [apiUrl]);
 

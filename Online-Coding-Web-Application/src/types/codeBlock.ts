@@ -3,6 +3,7 @@ export interface ICodeBlock {
     title: string; //title of the block
     template: string; // code block initial template
     solution: string; // solution of the code block
+    isSolved: boolean;//the code solution status
     createdAt: Date; // created time of the code block
     updatedAt: Date; // last update time of the code block
 }

@@ -16,6 +16,7 @@ const CodeBlockPage: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>(''); //the code of the block
   const [role, setRole] = useState<'mentor' | 'student'>(); //the role of the user
+  const [isSolved, setIsSolved] = useState<boolean>(false); //save the code solve status
   const [studentCount, setStudentCount] = useState<number>(0);//the students number in the room
   const [title, setTitle] = useState<string>(); //the title of the block
 
@@ -24,6 +25,7 @@ const CodeBlockPage: React.FC = () => {
   useEffect(() => {// react hook equivalent to the concept of 'ngOnInit' in angular
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`).then(async (response) => { //sending http req to the server in order to fetch code block details from the DB
       setTitle(response.data.title);
+      setIsSolved(response.data.isSolved);
     }).catch((error => { //handel errors if they appear
       console.error('Failed to fetch code block:', error); //log error in devTools
       message.error('Error fetching code block. Please try again later.'); //notify the user about the error
@@ -48,14 +50,16 @@ const CodeBlockPage: React.FC = () => {
       });
     });
 
-    socket.on('code-update', async (data: string) => { //listen for code updates
-      setCode(data); //update the code in the global state
+    socket.on('code-update', async (data) => { //listen for code updates
+      setCode(data.code); //update the code in the global state
+      setIsSolved(data.isSolved)
     });
 
-    socket.on('code-solved', (data: boolean) => { //listen for the solvation status of the code block
+    socket.on('new-code-status', (data) => { //listen for the solvation status of the code block
       if (data) { //check if the code is solved
         message.success('🎉 Congratulations! You solved the code! 😊'); //pop up window announcing that the code was solved
       }
+      setIsSolved(data);
     });
 
     socket.on('redirect-lobby', (event) => { //listen for a situation where the mentor disconnect from the room
@@ -96,6 +100,7 @@ const CodeBlockPage: React.FC = () => {
       </div>
       <div className={styles.stats}>
         <label>Participants: {studentCount}</label>
+        <label>{isSolved ? 'Solved ✅' : 'On development 💻'}</label>
         {/* Want to add here between them 'isSolved' check that will always show the user the solve status of the code 'Solved' or 'In progress' */}
         <label>Role: {role} {role === 'mentor' ? '👨‍🏫' : '👨‍🎓'}</label>
       </div>

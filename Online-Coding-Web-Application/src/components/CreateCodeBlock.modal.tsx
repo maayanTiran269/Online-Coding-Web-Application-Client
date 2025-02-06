@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Modal, Input, Button, Form, message } from 'antd';
+import { Modal, Input, Button, Form, message, FormInstance, Space } from 'antd';
 import axios from 'axios';
 import { PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/components/CreateCodeBlock.modal.module.scss';
+
 const CreateCodeBlockModal: React.FC = () => {
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
   // const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
   const apiUrl = import.meta.env.VITE_DEV_API_URL; //url for development
   const [isModalVisible, setIsModalVisible] = useState(false); //modal visibility status
@@ -30,6 +35,27 @@ const CreateCodeBlockModal: React.FC = () => {
     form.resetFields();//reset all the fields
   };
 
+  //disable the submit button until all the fields are valid
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ form, children }) => {
+    const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+    // Watch all values
+    const values = Form.useWatch([], form);
+
+    React.useEffect(() => {
+      form
+        .validateFields({ validateOnly: true }) //check validation of the fields
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [form, values]);
+
+    return (
+      <Button type="primary" htmlType="submit" disabled={!submittable} onClick={handleOk}>
+        {children}
+      </Button>
+    );
+  };
+
   return (
     <>
       <Button
@@ -46,6 +72,7 @@ const CreateCodeBlockModal: React.FC = () => {
         centered  // Ensures modal is always centered
         width={600} // Adjust the width as needed
         style={{ overflowY: 'auto' }}
+        footer={null} //remove the default ok cancel buttons at the end of the modal
       >
         <Form
           form={form}
@@ -54,27 +81,60 @@ const CreateCodeBlockModal: React.FC = () => {
           <Form.Item
             name="title"
             label="Title"
-            rules={[{ required: true, message: 'Please enter a title' }]}
+            rules={[
+              { required: true, message: 'Please enter a title' },
+              {
+                validator: (_, value) =>
+                  value && value.trim() !== '' //validate that the user dose not enter only spaces or enters
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Title cannot be empty or only spaces/enters/tabs'))
+              }
+            ]}
           >
             <Input placeholder="Enter title" />
           </Form.Item>
+
           <Form.Item
             name="template"
             label="Template"
-            rules={[{ required: true, message: 'Please enter a template' }]}
+            rules={[
+              { required: true, message: 'Please enter a template' },
+              {
+                validator: (_, value) =>
+                  value && value.trim() !== '' //validate that the user dose not enter only spaces or enters
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Template cannot be empty or only spaces/enters/tabs'))
+              }
+            ]}
           >
             <Input.TextArea
               rows={4}
               placeholder="Enter template code" />
           </Form.Item>
+
           <Form.Item
             name="solution"
             label="Solution"
-            rules={[{ required: true, message: 'Please enter a solution' }]}
+            rules={[
+              { required: true, message: 'Please enter a Solution' },
+              {
+                validator: (_, value) =>
+                  value && value.trim() !== '' //validate that the user dose not enter only spaces or enters
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Solution cannot be empty or only spaces/enters/tabs'))
+              }
+            ]}
           >
             <Input.TextArea
               rows={4}
               placeholder="Enter solution code" />
+          </Form.Item>
+
+          <Form.Item>
+            <Space>
+              <SubmitButton form={form}>Submit</SubmitButton>
+              <Button htmlType="reset">Reset</Button>
+            </Space>
           </Form.Item>
         </Form>
       </Modal>

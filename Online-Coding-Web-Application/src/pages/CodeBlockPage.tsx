@@ -25,7 +25,6 @@ const CodeBlockPage: React.FC = () => {
   useEffect(() => {// react hook equivalent to the concept of 'ngOnInit' in angular
     axios.get<ICodeBlock>(`${apiUrl}/api/code-blocks/${id}`).then(async (response) => { //sending http req to the server in order to fetch code block details from the DB
       setTitle(response.data.title);
-      setIsSolved(response.data.isSolved);
     }).catch((error => { //handel errors if they appear
       console.error('Failed to fetch code block:', error); //log error in devTools
       message.error('Error fetching code block. Please try again later.'); //notify the user about the error
@@ -52,7 +51,7 @@ const CodeBlockPage: React.FC = () => {
 
     socket.on('code-update', async (data) => { //listen for code updates
       setCode(data.code); //update the code in the global state
-      setIsSolved(data.isSolved)
+      setIsSolved(data.isSolved);
     });
 
     socket.on('new-code-status', (data) => { //listen for the solvation status of the code block

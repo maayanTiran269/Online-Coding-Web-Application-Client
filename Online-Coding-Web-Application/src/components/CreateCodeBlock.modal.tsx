@@ -8,8 +8,8 @@ const CreateCodeBlockModal: React.FC = () => {
   interface SubmitButtonProps {
     form: FormInstance;
   }
-
-  const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
+  const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
   // const apiUrl = import.meta.env.VITE_DEV_API_URL; //url for development
   const [isModalVisible, setIsModalVisible] = useState(false); //modal visibility status
   const [form] = Form.useForm(); //ant-design form

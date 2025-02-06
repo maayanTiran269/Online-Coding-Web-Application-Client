@@ -9,8 +9,11 @@ import socket from '../utils/socket';
 import { CodeOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const LobbyPage: React.FC = () => {
-  const apiUrl = import.meta.env.VITE_PROD_API_URL;
+
+  // const apiUrl = import.meta.env.VITE_PROD_API_URL;
+  const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
   // const apiUrl = import.meta.env.VITE_DEV_API_URL;
+  
   const [codeBlocks, setCodeBlocks] = useState<ICodeBlock[]>([]); //save array of all the blocks in the global state
   const navigate = useNavigate(); //Used in order to navigate between routs
 

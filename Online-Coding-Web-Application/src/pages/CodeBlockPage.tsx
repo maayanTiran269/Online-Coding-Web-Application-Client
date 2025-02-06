@@ -58,9 +58,12 @@ const CodeBlockPage: React.FC = () => {
       }
     });
 
-    socket.on('redirect-lobby', () => { //listen for a situation where the mentor disconnect from the room
+    socket.on('redirect-lobby', (event) => { //listen for a situation where the mentor disconnect from the room
       navigate(`/`); //navigate the student back to the lobby
-      message.info('This room has been closed by the mentor 🚪.'); //pop up window announcing the student that the room was closed by the mentor
+      if (event === 'mentor-left')
+        message.info('This room has been closed by the mentor 🚪.'); //pop up window announcing the student that the room was closed by the mentor
+      else if(event === 'deletion')
+        message.info('This room has been deleted 🗑'); //pop up window announcing the student that the room was closed by the mentor
     });
 
     return () => {//cleanup all socket listeners in this component when it unmounts

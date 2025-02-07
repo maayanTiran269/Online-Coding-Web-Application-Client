@@ -5,15 +5,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/components/CreateCodeBlock.modal.module.scss';
 
 const CreateCodeBlockModal: React.FC = () => {
-  interface SubmitButtonProps {
-    form: FormInstance;
-  }
-  // const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
-  const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
+  const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
   // const apiUrl = import.meta.env.VITE_DEV_API_URL; //url for development
+  // const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
   const [isModalVisible, setIsModalVisible] = useState(false); //modal visibility status
   const [form] = Form.useForm(); //ant-design form
 
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
   const showModal = () => { //when user click the button to open the modal it updates the isModalVisible global state to true(visible)
     setIsModalVisible(true);//updates the isModalVisible global state to true(visible)
   };

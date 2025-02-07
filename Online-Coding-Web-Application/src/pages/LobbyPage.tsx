@@ -29,6 +29,7 @@ const LobbyPage: React.FC = () => {
       message.info('New code block add to the system'); //notify the user that new block just add to the system
     });
 
+
     socket.on('code-deletion', (id) => { //listen for deletion of blocks
       setCodeBlocks((prev) => prev.filter(block => block._id !== id));//get the current blocks in the state, create new array of all the blocks that dose not have the deleted block id 
       message.success('Code block deleted successfully'); //notify the user that a block just got deleted

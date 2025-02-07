@@ -7,7 +7,7 @@ import styles from '../styles/components/CreateCodeBlock.modal.module.scss';
 const CreateCodeBlockModal: React.FC = () => {
   const apiUrl = import.meta.env.VITE_PROD_API_URL; //url for production
   // const apiUrl = import.meta.env.VITE_DEV_API_URL; //url for development
-  // const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
+  
   const [isModalVisible, setIsModalVisible] = useState(false); //modal visibility status
   const [form] = Form.useForm(); //ant-design form
 

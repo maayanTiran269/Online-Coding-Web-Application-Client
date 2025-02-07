@@ -12,7 +12,6 @@ import { } from 'antd'
 const CodeBlockPage: React.FC = () => {
   const apiUrl = import.meta.env.VITE_PROD_API_URL;
   // const apiUrl = import.meta.env.VITE_DEV_API_URL;
-  // const apiUrl = import.meta.env.VITE_TESTING_API_URL; //url for testing
 
   const { id } = useParams<{ id: string }>(); // Get the code block ID from the URL
   const [code, setCode] = useState<string>(''); //the code of the block
